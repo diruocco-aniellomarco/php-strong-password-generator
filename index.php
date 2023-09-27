@@ -1,7 +1,10 @@
 <?php 
+
+include __DIR__.'./functions.php';
+    // Lista caratteri da usare in versione unica stringa
     $charsList = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 ! @ # $ % ^ & * ( )';
     
-    //da 0 a 71
+    // creo un array dove in ogni indice ci sarà un carattere
     $character = explode(" ", $charsList);
     // var_dump($character);
     
@@ -11,19 +14,8 @@
     if($pass_request){
         $requestNumChars = (int)$_GET['passChars'];
         
-        if($requestNumChars > 4 && $requestNumChars < 16) {
-            $passGen = [];
-            for ($i = 0; $i < $requestNumChars; $i++){
-                
-                $numRandom = rand(0,71);
-                
-                $passGen[] = $character[$numRandom];
-                
-            }
-            $pass = implode("",$passGen); 
-        } 
+        $pass = gen_pass($requestNumChars, $character);
         
-        var_dump( $pass);
     };
     
 
