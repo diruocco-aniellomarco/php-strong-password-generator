@@ -7,15 +7,17 @@ include __DIR__.'./functions.php';
     // creo un array dove in ogni indice ci sarà un carattere
     $character = explode(" ", $charsList);
     // var_dump($character);
-    
-    $pass ='';
+    session_start();
+    $_SESSION['pass'] ='';
     $pass_request = !empty($_GET['passChars']);
     
     if($pass_request){
         $requestNumChars = (int)$_GET['passChars'];
         
-        $pass = gen_pass($requestNumChars, $character);
-        
+        $_SESSION['pass'] = gen_pass($requestNumChars, $character);
+        if($_SESSION['pass']) {
+            header('Location: ./view_pass.php');
+        }
     };
     
 
@@ -54,12 +56,12 @@ include __DIR__.'./functions.php';
                 </form>
             </div>
         </div>
-        <?php if($pass != ''): ?>
+        <!-- <?php if($_SESSION['pass'] != ''): ?>
         <div class="text-center">
             <p>La sua password è: </p>
-            <p><?php echo $pass ?></p>
+            <p><?php echo $_SESSION['pass'] ?></p>
         </div>        
-        <?php endif?>
+        <?php endif?> -->
     </div>
     
 </body>
